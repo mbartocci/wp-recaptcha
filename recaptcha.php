@@ -325,14 +325,14 @@ COMMENT_FORM;
                     return $result;
                 }
                 
-                $response = recaptcha_check_answer($this->options['private_key'], $_SERVER['REMOTEADDR'], $_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field']);
+                $response = recaptcha_check_answer($this->options['private_key'], $_SERVER['REMOTE_ADDR'], $_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field']);
                 
                 // response is bad, add incorrect response error
                 // todo: why echo the error here? wpmu specific?
                 if (!$response->is_valid)
                     if ($response->error == 'incorrect-captcha-sol') {
                         $result['errors']->add('captcha_wrong', $this->options['incorrect_response_error']);
-                        echo '<div class="error">' . $this->options['incorrect_response_error'] . '</div>';
+                        //echo '<div class="error">' . $this->options['incorrect_response_error'] . '</div>';
                     }
                     
                 return $result;
